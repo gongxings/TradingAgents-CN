@@ -242,7 +242,7 @@ netstat -an | grep 8501
 
 ```bash
 # 启用Streamlit调试模式
-streamlit run web/app.py --logger.level=debug
+streamlit run web/app.py --logutils.level=debug
 
 # 启用应用调试模式
 # 在左侧边栏勾选"调试模式"

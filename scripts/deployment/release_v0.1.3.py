@@ -125,7 +125,7 @@ def commit_changes():
         "docs/guides/a-share-analysis-guide.md",
         "docs/data/china_stock-api-integration.md",
         "tradingagents/dataflows/tdx_utils.py",
-        "tradingagents/agents/utils/agent_utils.py",
+        "tradingagents/agents/logutils/agent_utils.py",
         "web/components/analysis_form.py",
         "requirements.txt"
     ]

@@ -190,21 +190,21 @@ def test_logging():
         os.environ['TRADINGAGENTS_LOG_DIR'] = '/app/logs'
         
         # 导入日志模块
-        from tradingagents.utils.logging_init import init_logging, get_logger
+        from tradingagents.logutils.logging_init import init_logging, get_logger
         
         # 初始化日志
         print("📋 初始化日志系统...")
         init_logging()
         
         # 获取日志器
-        logger = get_logger('test')
+        logutils = get_logger('test')
         
         # 测试各种级别的日志
         print("📝 写入测试日志...")
-        logger.debug("🔍 这是DEBUG级别日志")
-        logger.info("ℹ️ 这是INFO级别日志")
-        logger.warning("⚠️ 这是WARNING级别日志")
-        logger.error("❌ 这是ERROR级别日志")
+        logutils.debug("🔍 这是DEBUG级别日志")
+        logutils.info("ℹ️ 这是INFO级别日志")
+        logutils.warning("⚠️ 这是WARNING级别日志")
+        logutils.error("❌ 这是ERROR级别日志")
         
         # 检查日志文件
         log_dir = Path("/app/logs")

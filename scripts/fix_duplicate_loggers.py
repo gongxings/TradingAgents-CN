@@ -39,7 +39,7 @@ def analyze_logger_definitions(file_path: str) -> Dict:
         return {'error': str(e), 'logger_lines': []}
     
     logger_lines = []
-    logger_pattern = re.compile(r'^\s*logger\s*=\s*get_logger\s*\(')
+    logger_pattern = re.compile(r'^\s*logutils\s*=\s*get_logger\s*\(')
     
     for i, line in enumerate(lines, 1):
         if logger_pattern.match(line):
@@ -142,7 +142,7 @@ def fix_duplicate_loggers(file_path: str) -> Dict:
     for line_num in remove_lines:
         if 0 <= line_num < len(lines):
             # 检查是否确实是logger定义
-            if 'logger = get_logger(' in lines[line_num]:
+            if 'logutils = get_logger(' in lines[line_num]:
                 lines.pop(line_num)
                 changes_made += 1
     

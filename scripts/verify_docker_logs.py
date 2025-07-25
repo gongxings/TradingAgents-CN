@@ -50,18 +50,18 @@ os.environ['DOCKER_CONTAINER'] = 'true'
 os.environ['TRADINGAGENTS_LOG_DIR'] = '/app/logs'
 
 try:
-    from tradingagents.utils.logging_init import init_logging, get_logger
+    from tradingagents.logutils.logging_init import init_logging, get_logger
     
     print('🔧 初始化日志系统...')
     init_logging()
     
     print('📝 获取日志器...')
-    logger = get_logger('docker_test')
+    logutils = get_logger('docker_test')
     
     print('✍️ 写入测试日志...')
-    logger.info('🧪 Docker环境日志测试 - INFO级别')
-    logger.warning('⚠️ Docker环境日志测试 - WARNING级别')
-    logger.error('❌ Docker环境日志测试 - ERROR级别')
+    logutils.info('🧪 Docker环境日志测试 - INFO级别')
+    logutils.warning('⚠️ Docker环境日志测试 - WARNING级别')
+    logutils.error('❌ Docker环境日志测试 - ERROR级别')
     
     print('✅ 日志写入完成')
     

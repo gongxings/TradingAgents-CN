@@ -47,7 +47,7 @@ class StructuredFormatter(logging.Formatter):
         log_entry = {
             'timestamp': datetime.fromtimestamp(record.created).isoformat(),
             'level': record.levelname,
-            'logger': record.name,
+            'logutils': record.name,
             'message': record.getMessage(),
             'module': record.module,
             'function': record.funcName,

@@ -40,7 +40,7 @@ def get_all_stocks() -> List[Dict[str, Any]]:
     
     Example:
         >>> stocks = get_all_stocks()
-        logger.info(f"共有{len(stocks)}只股票")
+        logutils.info(f"共有{len(stocks)}只股票")
     """
     service = get_stock_data_service()
     result = service.get_stock_basic_info()
@@ -84,7 +84,7 @@ def search_stocks_by_name(name: str) -> List[Dict[str, Any]]:
     Example:
         >>> results = search_stocks_by_name('银行')
         >>> for stock in results:
-        logger.info(f"{stock['code']}: {stock['name']}")
+        logutils.info(f"{stock['code']}: {stock['name']}")
     """
     # 这个功能需要MongoDB支持，暂时通过原有方式实现
     try:
@@ -104,8 +104,8 @@ def check_data_sources() -> Dict[str, Any]:
     
     Example:
         >>> status = check_data_sources()
-        logger.info(f"MongoDB可用: {status['mongodb_available']}")
-        logger.info(f"Tushare数据接口可用: {status['tdx_api_available']}")
+        logutils.info(f"MongoDB可用: {status['mongodb_available']}")
+        logutils.info(f"Tushare数据接口可用: {status['tdx_api_available']}")
     """
     service = get_stock_data_service()
     

@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 """
 修复logger变量位置脚本 (改进版)
-Fix logger variable position script (improved version)
+Fix logutils variable position script (improved version)
 
 将错误位置的logger初始化移动到文件头部import语句下面
-Move misplaced logger initialization to the correct position after import statements
+Move misplaced logutils initialization to the correct position after import statements
 """
 
 import os
@@ -92,7 +92,7 @@ class LoggerPositionFixer:
             # 检查import语句
             if (stripped.startswith('import ') or 
                 stripped.startswith('from ') or
-                ('import ' in stripped and not stripped.startswith('logger'))):
+                ('import ' in stripped and not stripped.startswith('logutils'))):
                 structure['last_import'] = i + 1
                 
                 # 检查是否有日志相关的import
@@ -103,7 +103,7 @@ class LoggerPositionFixer:
                 continue
                 
             # 检查logger初始化
-            if re.match(r'^\s*logger\s*=\s*get_logger\s*\(', stripped):
+            if re.match(r'^\s*logutils\s*=\s*get_logger\s*\(', stripped):
                 structure['logger_positions'].append(i)
                 
                 # 检查是否在合适位置（import后不久）
@@ -115,7 +115,7 @@ class LoggerPositionFixer:
     def fix_logger_position(self, file_path: str) -> bool:
         """
         修复单个文件的logger位置
-        Fix logger position in a single file
+        Fix logutils position in a single file
         """
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
@@ -194,7 +194,7 @@ class LoggerPositionFixer:
     def fix_all_files(self, directory: str) -> dict:
         """
         修复所有文件的logger位置
-        Fix logger position in all files
+        Fix logutils position in all files
         """
         python_files = self.find_python_files(directory)
         

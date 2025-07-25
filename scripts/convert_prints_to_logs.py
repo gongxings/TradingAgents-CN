@@ -71,7 +71,7 @@ class PrintToLogConverter:
     def add_logging_import(self, content: str, file_path: Path) -> str:
         """添加日志导入"""
         # 检查是否已经有日志导入
-        if 'from tradingagents.utils.logging_manager import get_logger' in content:
+        if 'from tradingagents.logutils.logging_manager import get_logger' in content:
             return content
         
         lines = content.split('\n')
@@ -117,8 +117,8 @@ class PrintToLogConverter:
                 logger_name = 'dataflows'
             elif 'llm_adapters' in str(relative_path):
                 logger_name = 'llm_adapters'
-            elif 'utils' in str(relative_path):
-                logger_name = 'utils'
+            elif 'logutils' in str(relative_path):
+                logger_name = 'logutils'
             else:
                 logger_name = 'tradingagents'
         elif 'cli' in str(relative_path):
@@ -131,8 +131,8 @@ class PrintToLogConverter:
         # 插入日志导入
         lines.insert(insert_pos, "")
         lines.insert(insert_pos + 1, "# 导入日志模块")
-        lines.insert(insert_pos + 2, "from tradingagents.utils.logging_manager import get_logger")
-        lines.insert(insert_pos + 3, f"logger = get_logger('{logger_name}')")
+        lines.insert(insert_pos + 2, "from tradingagents.logutils.logging_manager import get_logger")
+        lines.insert(insert_pos + 3, f"logutils = get_logger('{logger_name}')")
         
         return '\n'.join(lines)
     
@@ -172,10 +172,10 @@ class PrintToLogConverter:
                     # 构建新的日志语句
                     if rest and rest.startswith(','):
                         # 有额外参数
-                        new_line = f"{' ' * indent}logger.{log_level}(f\"{message}\"{rest})"
+                        new_line = f"{' ' * indent}logutils.{log_level}(f\"{message}\"{rest})"
                     else:
                         # 没有额外参数
-                        new_line = f"{' ' * indent}logger.{log_level}(f\"{message}\")"
+                        new_line = f"{' ' * indent}logutils.{log_level}(f\"{message}\")"
                     
                     line = new_line
                     line_modified = True

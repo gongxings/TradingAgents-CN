@@ -73,7 +73,7 @@ class LogAnalyzer:
                 
             return {
                 'timestamp': timestamp,
-                'logger': logger_name.strip(),
+                'logutils': logger_name.strip(),
                 'level': level.strip(),
                 'message': message.strip(),
                 'line_number': line_num,
@@ -108,7 +108,7 @@ class LogAnalyzer:
                         'timestamp': entry.get('timestamp'),
                         'duration': duration,
                         'message': message,
-                        'logger': entry.get('logger', '')
+                        'logutils': entry.get('logutils', '')
                     })
             
             # 分析完成时间
@@ -227,7 +227,7 @@ class LogAnalyzer:
                 analysis['hourly_usage'][hour] += 1
             
             # 模块使用统计
-            logger = entry.get('logger', '')
+            logger = entry.get('logutils', '')
             if logger:
                 analysis['module_usage'][logger] += 1
             

@@ -66,7 +66,7 @@ def validate_stock_code(original_code: str, processed_content: str) -> str:
     if original_code in error_mappings:
         for wrong_code in error_mappings[original_code]:
             if wrong_code in processed_content:
-                logger.error(f"🔍 [股票代码验证] 发现错误代码 {wrong_code}，修正为 {original_code}")
+                logutils.error(f"🔍 [股票代码验证] 发现错误代码 {wrong_code}，修正为 {original_code}")
                 processed_content = processed_content.replace(wrong_code, original_code)
     
     return processed_content
@@ -96,40 +96,40 @@ sys.path.insert(0, project_root)
 
 def test_002027_specifically():
     """专门测试002027股票代码"""
-    logger.debug(f"🔍 002027 专项测试")
-    logger.info(f"=")
+    logutils.debug(f"🔍 002027 专项测试")
+    logutils.info(f"=")
     
     test_ticker = "002027"
     
     try:
-        from tradingagents.utils.logging_init import get_logger
-        logger.setLevel("INFO")
+        from tradingagents.logutils.logging_init import get_logger
+        logutils.setLevel("INFO")
         
         # 测试1: 数据获取
-        logger.info(f"\\n📊 测试1: 数据获取")
+        logutils.info(f"\\n📊 测试1: 数据获取")
         from tradingagents.dataflows.interface import get_china_stock_data_tushare
         data = get_china_stock_data_tushare(test_ticker, "2025-07-01", "2025-07-15")
         
         if "002021" in data:
-            logger.error(f"❌ 数据获取阶段发现错误代码 002021")
+            logutils.error(f"❌ 数据获取阶段发现错误代码 002021")
             return False
         else:
-            logger.info(f"✅ 数据获取阶段正确")
+            logutils.info(f"✅ 数据获取阶段正确")
         
         # 测试2: 基本面分析
-        logger.info(f"\\n💰 测试2: 基本面分析")
+        logutils.info(f"\\n💰 测试2: 基本面分析")
         from tradingagents.dataflows.optimized_china_data import OptimizedChinaDataProvider
         analyzer = OptimizedChinaDataProvider()
         report = analyzer._generate_fundamentals_report(test_ticker, data)
         
         if "002021" in report:
-            logger.error(f"❌ 基本面分析阶段发现错误代码 002021")
+            logutils.error(f"❌ 基本面分析阶段发现错误代码 002021")
             return False
         else:
-            logger.info(f"✅ 基本面分析阶段正确")
+            logutils.info(f"✅ 基本面分析阶段正确")
         
         # 测试3: LLM处理
-        logger.info(f"\\n🤖 测试3: LLM处理")
+        logutils.info(f"\\n🤖 测试3: LLM处理")
         api_key = os.getenv("DASHSCOPE_API_KEY")
         if api_key:
             from tradingagents.llm_adapters import ChatDashScopeOpenAI
@@ -143,19 +143,19 @@ def test_002027_specifically():
             response = llm.invoke([HumanMessage(content=prompt)])
             
             if "002021" in response.content:
-                logger.error(f"❌ LLM处理阶段发现错误代码 002021")
-                logger.error(f"错误内容: {response.content[:200]}...")
+                logutils.error(f"❌ LLM处理阶段发现错误代码 002021")
+                logutils.error(f"错误内容: {response.content[:200]}...")
                 return False
             else:
-                logger.info(f"✅ LLM处理阶段正确")
+                logutils.info(f"✅ LLM处理阶段正确")
         else:
-            logger.warning(f"⚠️ 跳过LLM测试（未配置API密钥）")
+            logutils.warning(f"⚠️ 跳过LLM测试（未配置API密钥）")
         
-        logger.info(f"\\n🎉 所有测试通过！002027股票代码处理正确")
+        logutils.info(f"\\n🎉 所有测试通过！002027股票代码处理正确")
         return True
         
     except Exception as e:
-        logger.error(f"❌ 测试失败: {e}")
+        logutils.error(f"❌ 测试失败: {e}")
         return False
 
 if __name__ == "__main__":

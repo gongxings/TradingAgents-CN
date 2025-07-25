@@ -72,7 +72,7 @@ def get_all_stocks() -> List[Dict[str, Any]]:
     
     Example:
         >>> stocks = get_all_stocks()
-        logger.info(f"共有{len(stocks)}只股票")
+        logutils.info(f"共有{len(stocks)}只股票")
     """
     if not SERVICE_AVAILABLE:
         return [{
@@ -133,7 +133,7 @@ def search_stocks(keyword: str) -> List[Dict[str, Any]]:
     Example:
         >>> results = search_stocks('平安')
         >>> for stock in results:
-        logger.info(f"{stock["code']}: {stock['name']}")
+        logutils.info(f"{stock["code']}: {stock['name']}")
     """
     all_stocks = get_all_stocks()
     
@@ -165,7 +165,7 @@ def get_market_summary() -> Dict[str, Any]:
     
     Example:
         >>> summary = get_market_summary()
-        logger.info(f"沪市股票数量: {summary["shanghai_count']}")
+        logutils.info(f"沪市股票数量: {summary["shanghai_count']}")
     """
     all_stocks = get_all_stocks()
     
@@ -212,7 +212,7 @@ def check_service_status() -> Dict[str, Any]:
     
     Example:
         >>> status = check_service_status()
-        logger.info(f"MongoDB状态: {status["mongodb_status']}")
+        logutils.info(f"MongoDB状态: {status["mongodb_status']}")
     """
     if not SERVICE_AVAILABLE:
         return {

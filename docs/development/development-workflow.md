@@ -134,7 +134,7 @@ git add tradingagents/data/akshare_adapter.py
 git commit -m "enhance(data): 添加AkShare数据源适配器"
 
 # 添加中文金融术语支持
-git add tradingagents/utils/chinese_terms.py
+git add tradingagents/logger/chinese_terms.py
 git commit -m "enhance(utils): 添加中文金融术语映射"
 
 # 配置中文市场参数

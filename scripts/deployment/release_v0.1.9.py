@@ -137,8 +137,8 @@ def generate_release_summary():
         "files_changed": {
             "core_files": [
                 "cli/main.py - CLI界面重构和进度显示优化",
-                "tradingagents/utils/logging_manager.py - 统一日志管理器",
-                "tradingagents/utils/tool_logging.py - 工具调用日志记录",
+                "tradingagents/logutils/logging_manager.py - 统一日志管理器",
+                "tradingagents/logutils/tool_logging.py - 工具调用日志记录",
                 "config/logging.toml - 日志配置文件"
             ],
             "documentation": [
@@ -176,7 +176,7 @@ def validate_release():
         "docs/releases/v0.1.9.md",
         "docs/releases/CHANGELOG.md",
         "cli/main.py",
-        "tradingagents/utils/logging_manager.py"
+        "tradingagents/logutils/logging_manager.py"
     ]
     
     for file_path in key_files:

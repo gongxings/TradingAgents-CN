@@ -135,8 +135,8 @@ def test_import_paths():
     
     imports_to_test = [
         "tradingagents.agents.analysts.fundamentals_analyst",
-        "tradingagents.utils.stock_utils",
-        "tradingagents.agents.utils.agent_utils",
+        "tradingagents.logger.stock_utils",
+        "tradingagents.agents.logger.agent_utils",
         "tradingagents.default_config"
     ]
     

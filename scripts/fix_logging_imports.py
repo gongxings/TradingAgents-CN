@@ -43,8 +43,8 @@ class LoggingImportFixer:
         
         for i, line in enumerate(lines):
             if ('# 导入日志模块' in line or 
-                'from tradingagents.utils.logging_manager import get_logger' in line or 
-                (line.strip().startswith('logger = get_logger(') and 'logging_manager' in lines[max(0, i-2):i+1])):
+                'from tradingagents.logutils.logging_manager import get_logger' in line or
+                (line.strip().startswith('logutils = get_logger(') and 'logging_manager' in lines[max(0, i-2):i+1])):
                 logging_import_lines.append(line)
                 logging_import_indices.append(i)
         
@@ -98,8 +98,8 @@ class LoggingImportFixer:
                 logger_name = 'dataflows'
             elif 'llm_adapters' in str(relative_path):
                 logger_name = 'llm_adapters'
-            elif 'utils' in str(relative_path):
-                logger_name = 'utils'
+            elif 'logutils' in str(relative_path):
+                logger_name = 'logutils'
             else:
                 logger_name = 'tradingagents'
         elif 'cli' in str(relative_path):
@@ -112,8 +112,8 @@ class LoggingImportFixer:
         # 在正确位置插入日志导入
         lines.insert(insert_pos, "")
         lines.insert(insert_pos + 1, "# 导入日志模块")
-        lines.insert(insert_pos + 2, "from tradingagents.utils.logging_manager import get_logger")
-        lines.insert(insert_pos + 3, f"logger = get_logger('{logger_name}')")
+        lines.insert(insert_pos + 2, "from tradingagents.logutils.logging_manager import get_logger")
+        lines.insert(insert_pos + 3, f"logutils = get_logger('{logger_name}')")
         
         return '\n'.join(lines)
     
@@ -127,7 +127,7 @@ class LoggingImportFixer:
                 content = f.read()
             
             # 检查是否包含日志导入
-            if 'from tradingagents.utils.logging_manager import get_logger' not in content:
+            if 'from tradingagents.logutils.logging_manager import get_logger' not in content:
                 return False
             
             original_content = content

@@ -634,7 +634,7 @@ docker-compose logs
 tail -f logs/tradingagents.log
 
 # 启动时显示详细日志
-python -m streamlit run web/app.py --logger.level=debug
+python -m streamlit run web/app.py --logutils.level=debug
 ```
 
 ### 网络问题

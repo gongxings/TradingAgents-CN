@@ -222,7 +222,7 @@ python scripts/{dir_name}/script_name.py
 ### 脚本分类
 - **tests/** - 单元测试和集成测试（pytest运行）
 - **scripts/** - 工具脚本和验证脚本（独立运行）
-- **utils/** - 实用工具脚本
+- **logutils/** - 实用工具脚本
 
 ### 运行方式
 ```bash

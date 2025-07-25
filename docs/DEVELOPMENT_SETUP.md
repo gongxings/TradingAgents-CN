@@ -96,7 +96,7 @@ docker exec TradingAgents-web pip list | grep pandoc
 ### 3. 文件同步验证
 ```bash
 # 检查文件是否同步
-docker exec TradingAgents-web ls -la /app/web/utils/
+docker exec TradingAgents-web ls -la /app/web/logutils/
 
 # 检查文件内容
 docker exec TradingAgents-web head -10 /app/test_conversion.py

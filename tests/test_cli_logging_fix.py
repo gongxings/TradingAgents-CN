@@ -48,7 +48,7 @@ def test_cli_logging_setup():
         
         # 测试日志输出
         print("\n🧪 测试日志输出:")
-        print("   执行 logger.info('测试消息')...")
+        print("   执行 logutils.info('测试消息')...")
         logger.info("这是一条测试日志消息，应该只写入文件，不在控制台显示")
         print("   ✅ 如果上面没有显示时间戳和日志信息，说明修复成功")
         

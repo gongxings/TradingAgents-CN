@@ -33,7 +33,7 @@ class LoggingMigrator:
             'tradingagents/graph': 'get_logger("graph")',
             'tradingagents/agents': 'get_logger("agents")',
             'tradingagents/api': 'get_logger("api")',
-            'tradingagents/utils': 'get_logger("utils")',
+            'tradingagents/logutils': 'get_logger("logutils")',
             'cli': 'get_logger("cli")',
             'scripts': 'get_logger("scripts")'
         }
@@ -81,7 +81,7 @@ class LoggingMigrator:
     def _add_logging_import(self, content: str, file_path: Path) -> str:
         """添加统一日志导入"""
         # 检查是否已经有统一日志导入
-        if 'from tradingagents.utils.logging_init import' in content:
+        if 'from tradingagents.logutils.logging_init import' in content:
             return content
         
         # 确定使用哪个日志初始化函数
@@ -98,11 +98,11 @@ class LoggingMigrator:
         
         # 插入日志导入
         if logger_func.startswith('setup_'):
-            import_line = f"from tradingagents.utils.logging_init import {logger_func}"
-            logger_line = f"logger = {logger_func}()"
+            import_line = f"from tradingagents.logutils.logging_init import {logger_func}"
+            logger_line = f"logutils = {logger_func}()"
         else:
-            import_line = f"from tradingagents.utils.logging_init import get_logger"
-            logger_line = f"logger = {logger_func}"
+            import_line = f"from tradingagents.logutils.logging_init import get_logger"
+            logger_line = f"logutils = {logger_func}"
         
         lines.insert(insert_pos, "")
         lines.insert(insert_pos + 1, "# 导入统一日志系统")
@@ -124,16 +124,16 @@ class LoggingMigrator:
     
     def _replace_get_logger(self, content: str, file_path: Path) -> str:
         """替换logging.getLogger()调用"""
-        # 替换 self.logger = logging.getLogger(__name__)
+        # 替换 self.logutils = logging.getLogger(__name__)
         content = re.sub(
-            r'self\.logger\s*=\s*logging\.getLogger\(__name__\)',
-            'self.logger = logger',
+            r'self\.logutils\s*=\s*logging\.getLogger\(__name__\)',
+            'self.logutils = logutils',
             content
         )
         
-        # 替换 logger = logging.getLogger(__name__)
+        # 替换 logutils = logging.getLogger(__name__)
         content = re.sub(
-            r'logger\s*=\s*logging\.getLogger\(__name__\)',
+            r'logutils\s*=\s*logging\.getLogger\(__name__\)',
             '# logger已在导入时初始化',
             content
         )
@@ -141,7 +141,7 @@ class LoggingMigrator:
         # 替换其他logging.getLogger()调用
         content = re.sub(
             r'logging\.getLogger\([^)]+\)',
-            'logger',
+            'logutils',
             content
         )
         
@@ -181,9 +181,9 @@ class LoggingMigrator:
                 # 构建新的日志语句
                 indent = len(line) - len(line.lstrip())
                 if rest.strip():
-                    new_line = f"{' ' * indent}logger.{log_level}(f\"{message}\"{rest})"
+                    new_line = f"{' ' * indent}logutils.{log_level}(f\"{message}\"{rest})"
                 else:
-                    new_line = f"{' ' * indent}logger.{log_level}(f\"{message}\")"
+                    new_line = f"{' ' * indent}logutils.{log_level}(f\"{message}\")"
                 
                 modified_lines.append(new_line)
             else:

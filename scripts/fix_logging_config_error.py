@@ -173,18 +173,18 @@ def simple_log_test():
     log_dir.mkdir(parents=True, exist_ok=True)
     
     # 创建简单的日志配置
-    logger = logging.getLogger("simple_test")
-    logger.setLevel(logging.DEBUG)
+    logutils = logging.getLogger("simple_test")
+    logutils.setLevel(logging.DEBUG)
     
     # 清除现有处理器
-    logger.handlers.clear()
+    logutils.handlers.clear()
     
     # 添加控制台处理器
     console_handler = logging.StreamHandler()
     console_handler.setLevel(logging.INFO)
     console_formatter = logging.Formatter("%(asctime)s | %(levelname)-8s | %(name)s | %(message)s")
     console_handler.setFormatter(console_formatter)
-    logger.addHandler(console_handler)
+    logutils.addHandler(console_handler)
     
     # 添加文件处理器
     try:
@@ -198,7 +198,7 @@ def simple_log_test():
         file_handler.setLevel(logging.DEBUG)
         file_formatter = logging.Formatter("%(asctime)s | %(name)-20s | %(levelname)-8s | %(module)s:%(funcName)s:%(lineno)d | %(message)s")
         file_handler.setFormatter(file_formatter)
-        logger.addHandler(file_handler)
+        logutils.addHandler(file_handler)
         
         print(f"✅ 文件处理器创建成功: {log_file}")
     except Exception as e:
@@ -207,10 +207,10 @@ def simple_log_test():
     
     # 测试日志写入
     try:
-        logger.debug("🔍 DEBUG级别测试日志")
-        logger.info("ℹ️ INFO级别测试日志")
-        logger.warning("⚠️ WARNING级别测试日志")
-        logger.error("❌ ERROR级别测试日志")
+        logutils.debug("🔍 DEBUG级别测试日志")
+        logutils.info("ℹ️ INFO级别测试日志")
+        logutils.warning("⚠️ WARNING级别测试日志")
+        logutils.error("❌ ERROR级别测试日志")
         
         print("✅ 日志写入测试完成")
         
